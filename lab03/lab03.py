@@ -1,3 +1,4 @@
+# %%
 import numpy as np
 import pandas as pd
 
@@ -9,12 +10,13 @@ df = pd.DataFrame({'x': X, 'y': y})
 df.to_csv('dane_do_regresji.csv',index=None)
 df.plot.scatter(x='x',y='y')
 
-
+# %%
 from sklearn.model_selection import train_test_split
 
 X_train, X_test, y_train, y_test = train_test_split(df[['x']], df[['y']], test_size=0.2, random_state=42)
 
 
+# %%
 from sklearn.linear_model import LinearRegression
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.preprocessing import PolynomialFeatures
@@ -46,7 +48,7 @@ polys_preds_mse = []
 polys_mse_trains = []
 poly_features = []
 for i in range(2, 6):
-    poly = PolynomialFeatures(i)
+    poly = PolynomialFeatures(i, include_bias=False)
     poly_features.append(poly)
     train_poly = poly.fit_transform(X_train)
     test_poly = poly.fit_transform(X_test)
@@ -65,6 +67,7 @@ new_df.to_pickle('mse.pkl')
 new_df.head(8)
 
 
+# %%
 import pickle
 
 excercise_4 = []
@@ -81,4 +84,3 @@ with open('reg.pkl', 'wb') as f:
     pickle.dump(excercise_4, f)
 
 
-#comment
